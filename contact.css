@@ -1,0 +1,51 @@
+:root {
+  --green: #3a7f29;
+  --blue: #58a3e0;
+  --orange: #eea93f;
+  --red: #c03d2b;
+  --purple: #8f3d9d;
+  --yellow: #f9d25f;
+  --light-blue: #63b4e8;
+  --pink: #e153a7;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Fredoka', sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  color: #222;
+  line-height: 1.6;
+}
+
+header {
+  background-color: var(--white);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 70px;
+}
+
+nav a {
+  color: darkblue;
+  margin-left: 1.2rem;
+  text-decoration: none;
+  font-weight: bold;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: 0.3s;
+}
+
+nav a.active,
+nav a:hover {
+  border-bottom: 2px solid var(--yellow);
+}

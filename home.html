@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home - Scams and Ladders</title>
+  <link rel="stylesheet" href="home.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    nav .logout-btn {
+      background-color: #d22e2e;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 10px;
+      margin-left: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+    nav .logout-btn:hover {
+      background-color: #b91818;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="home.html" class="logo-link">
+      <img src="Logo-3.png" alt="Scams and Ladders Logo" class="logo">
+    </a>
+    <nav>
+      <a href="home.html">Halaman Utama</a>
+      <a href="about.html">Tentang Kami</a>
+      <a href="games.html">Game</a>
+      <a href="documentation.html">Dokumentasi Kegiatan</a>
+      <a href="contact.html">Kontak Kami</a>
+      <a href="login.html" class="logout-btn">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-text">
+        <h1>
+          <span class="welcome">Welcome to</span>
+          <span class="brand">Scams and Ladders<span id="usernameDisplay"></span>!</span>
+        </h1>
+        <p class="tagline">Edukasi Anti-Scam yang Seru Lewat Board Games</p>
+      </div>
+
+      <div class="floating-elements">
+        <img src="https://img.icons8.com/3d-fluency/94/snake.png" alt="Snake" class="float snake" />
+        <img src="https://img.icons8.com/3d-fluency/94/dice.png" alt="Dice" class="float dice" />
+      </div>
+    </section>
+
+    <section class="info-timeline">
+      <div class="timeline-container">
+        <div class="timeline-line ladder" id="ladder"></div>
+        <div class="timeline-line"></div>
+
+        <div class="timeline-step left" data-icon="🎲" onclick="location.href='about.html';" style="cursor: pointer;">
+          <div class="content">
+            <h3>Tentang Kami</h3>
+            <p><strong>Scams and Ladders</strong> adalah proyek sosial berbasis board game klasik yang dimodifikasi. Tiap kotak berisi pertanyaan soal scam untuk edukasi digital yang menyenangkan.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step right" data-icon="🕵️" onclick="location.href='about.html';" style="cursor: pointer;">
+          <div class="content">
+            <h3>Makna Tagline</h3>
+            <p><em>"Kenali Jebakannya, Amankan Langkahmu"</em> mengajak untuk lebih waspada dan tanggap terhadap modus penipuan online.</p>
+          </div>
+        </div>
+
+        <div class="timeline-step left" data-icon="🧠" onclick="location.href='about.html';" style="cursor: pointer;">
+          <div class="content">
+            <h3>Produk Kami</h3>
+            <p>Gabungan board game fisik dan kuis digital untuk pembelajaran tentang scam, cocok untuk semua usia.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="game-cta">
+      <div class="cta-content">
+        <div class="cta-text">
+          <h2>Scams and Ladders: Game Edukasi Digital!</h2>
+          <p>Naiki tangga pengetahuan 💡 dan hindari jebakan scam 🐍 dalam petualangan seru penuh tantangan!</p>
+          <div class="cta-buttons">
+            <a href="games.html" class="cta-button">🎮 Mulai Bermain</a>
+            <a href="how-to-play.html" class="cta-button outline">📘 Cara Bermain</a>
+          </div>
+        </div>
+        <div class="cta-preview">
+          <div class="preview-box">
+            <img src="GAME PREVIEW.png" alt="Game preview" />
+            <p><small>Cuplikan gameplay akan tampil di sini</small></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-us">
+      <div class="contact-container">
+        <h2>📬 Hubungi Kami</h2>
+        <p>Ada pertanyaan, saran, atau ingin kolaborasi? Kami siap ngobrol!</p>
+
+        <form class="contact-form" action="saran_process.php" method="POST">
+          <input type="text" name="nama" placeholder="Nama Anda" required />
+          <input type="email" name="email" placeholder="Email Anda" required />
+          <textarea name="pesan" placeholder="Pesan Anda..." required></textarea>
+          <button type="submit">Kirim Pesan</button>
+        </form>
+
+        <div class="social-icons">
+          <a href="https://wa.me/6282114199533" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://instagram.com/scammyladders" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:scamsandladders@gmail.com" target="_blank" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Scams and Ladders. All rights reserved.</p>
+  </footer>
+
+  <script>
+  if (params.get("saran") === "success") {
+  alert("Terima kasih! Sarannya berhasil dikirim.");
+  window.history.replaceState(null, "", window.location.pathname);
+  }
+  </script>
+
+  <script>
+    // Tampilkan username dari URL
+    window.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const username = params.get("user");
+      if (username) {
+        const display = document.getElementById("usernameDisplay");
+        if (display) display.innerText = `, ${username}`;
+      }
+
+      if (params.get("saran") === "success") {
+        alert("Terima kasih! Sarannya berhasil dikirim.");
+        window.history.replaceState(null, "", window.location.pathname);
+      }
+
+      // Tambahkan anak tangga secara dinamis
+      const ladder = document.getElementById("ladder");
+      if (ladder) {
+        const totalRungs = 24;
+        const spacing = 35;
+        for (let i = 0; i < totalRungs; i++) {
+          const rung = document.createElement("div");
+          rung.classList.add("rung");
+          rung.style.top = `${i * spacing}px`;
+          rung.style.opacity = 0;
+          rung.style.transform = "scaleX(0.5) translateY(10px)";
+          ladder.appendChild(rung);
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const rungs = ladder.querySelectorAll(".rung");
+              rungs.forEach((rung, i) => {
+                rung.style.animation = `popRung 0.4s ease-out forwards`;
+                rung.style.animationDelay = `${i * 0.1}s`;
+              });
+              observer.unobserve(ladder);
+            }
+          });
+        }, { threshold: 0.3 });
+        observer.observe(ladder);
+      }
+
+      // Floating tilt effect
+      VanillaTilt.init(document.querySelectorAll(".float"), {
+        max: 15,
+        speed: 400,
+        glare: true,
+        "max-glare": 0.3
+      });
+
+      // Scroll effect for float
+      document.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        document.querySelectorAll('.float').forEach(el => {
+          el.style.transform = `translateY(${scrolled * 0.1}px)`;
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,587 @@
+:root {
+  --green: #3a7f29;
+  --blue: #58a3e0;
+  --orange: #eea93f;
+  --red: #c03d2b;
+  --purple: #8f3d9d;
+  --yellow: #f9d25f;
+  --light-blue: #63b4e8;
+  --pink: #e153a7;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Fredoka', sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  color: #222;
+  line-height: 1.6;
+}
+
+header {
+  background-color: var(--white);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 70px;
+}
+
+nav a {
+  color: darkblue;
+  margin-left: 1.2rem;
+  text-decoration: none;
+  font-weight: bold;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: 0.3s;
+}
+
+nav a.active,
+nav a:hover {
+  border-bottom: 2px solid var(--yellow);
+}
+
+.hero {
+  background: radial-gradient(circle,  #63b4e8, #eea93f, #e153a7, #8f3d9d);
+  background-size: 300% 300%;
+  animation: gradientFlow 15s ease infinite;
+  color: white;
+  text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 85vh;
+  padding: 2rem;
+}
+
+.hero-text {
+  max-width: 700px;
+  margin: 0 auto;
+  z-index: 2;
+  position: relative;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero .welcome {
+  display: inline-block;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInUp 1.5s ease forwards;
+}
+
+.hero .brand {
+  display: inline-block;
+  color: white;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  animation: wiggle 2.5s ease-in-out infinite;
+  margin-left: 0.5rem;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  font-style: italic;
+  text-shadow: 0 0 6px rgba(0,0,0,0.2);
+  margin-top: 0.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1.5s ease forwards;
+  animation-delay: 1.2s;
+}
+
+.floating-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-elements img {
+  position: absolute;
+  animation: float 4s ease-in-out infinite;
+}
+
+.snake { top: 20%; left: 10%; width: 70px; }
+.dice { top: 65%; left: 75%; width: 60px; }
+.ladder { top: 35%; left: 60%; width: 60px; }
+.pion { top: 60%; left: 30%; width: 50px; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes wiggle {
+  0%   { transform: rotate(0deg) translateY(0); }
+  25%  { transform: rotate(-2deg) translateY(-2px); }
+  50%  { transform: rotate(1deg) translateY(1px); }
+  75%  { transform: rotate(-1deg) translateY(-1px); }
+  100% { transform: rotate(0deg) translateY(0); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.info-timeline {
+  background: #f9f9f9;
+  padding: 5rem 2rem;
+  position: relative;
+}
+
+.timeline-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Tangga beneran */
+.timeline-line {
+  position: absolute;
+  top: -80px; /* agar mulai dari hero */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px; /* diperbesar */
+  height: 810px; /* atau 1000px, coba-coba lihat pas */
+  z-index: 1;
+}
+
+/* Sisi vertikal kiri dan kanan tangga */
+.timeline-line::before,
+.timeline-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 6px; /* lebih tebal */
+  background: var(--green);
+}
+
+.timeline-line::before {
+  left: 0;
+}
+.timeline-line::after {
+  right: 0;
+}
+
+/* Anak tangga (rung) */
+.rung {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--green);
+  opacity: 0;
+  transform: scaleX(0.5);
+}
+
+@keyframes popRung {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.5) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1) translateY(0);
+  }
+}
+
+/* STEP STYLE */
+.timeline-step {
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  margin: 2.5rem 0;
+  z-index: 2;
+}
+
+.timeline-step.left .content {
+  margin-right: auto;
+  border-left: 6px solid var(--green);
+  padding-left: 2rem;
+  text-align: left;
+}
+
+.timeline-step.right .content {
+  margin-left: auto;
+  border-right: 6px solid var(--blue);
+  padding-right: 2rem;
+  text-align: right;
+}
+
+.timeline-step .content {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-step .content:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Icon bubble di atas step */
+.timeline-step::before {
+  content: attr(data-icon);
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--yellow);
+  color: black;
+  font-size: 1.4rem;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 3;
+}
+
+.game-cta {
+  padding: 4rem 2rem;
+  background-color: var(--pink);
+  color: white;
+}
+
+.cta-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-text {
+  flex: 1 1 400px;
+  text-align: left;
+  animation: fadeInUp 1s ease-out both;
+}
+
+.cta-text h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.cta-text p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.cta-button {
+  background: white;
+  color: var(--pink);
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px) scale(1.03);
+}
+
+.cta-button.outline {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.cta-button.outline:hover {
+  background-color: white;
+  color: var(--pink);
+}
+
+.cta-preview {
+  flex: 1 1 400px;
+  text-align: center;
+  animation: fadeInUp 1.2s ease-out both;
+}
+
+.preview-box {
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 16 / 9; /* bikin kotaknya landscape */
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 0.5rem;
+  backdrop-filter: blur(6px);
+  border: 2px dashed white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.preview-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-us {
+  background: #fefefe;
+  padding: 4rem 2rem;
+  color: #333;
+  text-align: center;
+}
+
+.contact-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.contact-container h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--pink);
+}
+
+.contact-container p {
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  color: #666;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 1rem;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.contact-form textarea {
+  min-height: 120px;
+}
+
+.contact-form button {
+  background-color: var(--pink);
+  color: white;
+  border: none;
+  padding: 0.9rem 2rem;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1.15rem; /* lebih besar */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form button:hover {
+  background-color: var(--yellow);
+  color: black;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.contact-form button:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.contact-us {
+  background: #fefefe;
+  padding: 4rem 2rem;
+  color: #333;
+  text-align: center;
+  animation: fadeInUp 1.5s ease-out both;
+}
+
+.contact-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.contact-container h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--pink);
+}
+
+.contact-container p {
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  color: #666;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeInUp 2s ease-out both;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 1rem;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.contact-form textarea {
+  min-height: 120px;
+}
+
+.contact-form button {
+  background-color: var(--pink);
+  color: white;
+  border: none;
+  padding: 0.9rem 2rem;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form button:hover {
+  background-color: var(--yellow);
+  color: black;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.social-icons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  animation: fadeInUp 2.5s ease-out both;
+}
+
+.social-icons a {
+  font-size: 2rem;
+  color: var(--pink);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.2);
+  color: var(--yellow);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- FLIP‑BOOK ---------- */
+.book{position:relative;width:260px;height:320px;margin:auto;perspective:1200px;}
+.hard-cover,.page{position:absolute;inset:0;border-radius:8px;box-shadow:0 12px 28px rgba(0,0,0,.18);}
+.hard-cover{background:var(--pink);user-select:none;pointer-events:none;}
+.cover-left{transform:rotateY(180deg);z-index:40}
+.cover-right{right:-6px;z-index:5;transition:transform .8s ease;background:var(--pink);}
+.page{transform-style:preserve-3d;transform-origin:left;transition:transform .9s ease;}
+.page .front,.page .back{
+  position:absolute;inset:0;padding:1.4rem;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;border-radius:8px;backface-visibility:hidden;
+}
+.page .front{background:#fff;}
+.page .front i{font-size:3rem;color:var(--orange);margin-bottom:.8rem}
+.page .front h3{font-size:1.4rem;color:var(--blue);}
+.page .back{background:#fff;transform:rotateY(180deg);font-size:1rem;color:#444;line-height:1.45}
+
+/* kedalaman default */
+.page[data-page=\"1\"]{z-index:30}
+.page[data-page=\"2\"]{z-index:29}
+.page[data-page=\"3\"]{z-index:28}
+
+/* ketika dibalik */
+.page.flipped{transform:rotateY(-180deg);}
+.page.flipped ~ .page{ /* halaman di belakang ikut geser sedikit */
+  transform:translateX(3px);
+}
+
+/* cover kanan ikut membuka saat ada halaman terbalik */
+.book.open .cover-right{transform:rotateY(-160deg);}
+
+@media(max-width:600px){
+  .book{width:200px;height:250px}
+  .page .front i{font-size:2.3rem;}
+}
+
+footer {
+  background-color: var(--green);
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+

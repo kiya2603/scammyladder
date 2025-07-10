@@ -1,0 +1,492 @@
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+:root {
+    --green:      #3a7f29;
+    --blue:       #58a3e0;
+    --orange:     #eea93f;
+    --red:        #c03d2b;
+    --purple:     #8f3d9d;
+    --yellow:     #f9d25f;
+    --pink:       #e153a7;
+    --light-blue: #c4e4ff;
+}
+
+/* =========================================================
+   RESET & TYPOGRAPHY
+   ========================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Fredoka', sans-serif;
+}
+
+body {
+    background: #fff;
+    color: #222;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-bottom: 3px solid var(--green);
+}
+
+.logo {
+    height: 70px;
+}
+
+nav a {
+    margin-left: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    color: darkblue;
+    border-bottom: 2px solid transparent;
+    transition: 0.25s;
+}
+
+nav a:hover,
+nav a.active {
+    border-color: var(--yellow);
+}
+
+/* =========================================================
+   LAYOUT
+   ========================================================= */
+.wrapper {
+    display: flex;
+    gap: 3rem;
+    max-width: 1280px;
+    margin: 2rem auto;
+}
+
+#sidebar {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+/* =========================================================
+   BOARD GRID
+   ========================================================= */
+#board {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(10, 60px);
+    grid-template-rows: repeat(10, 60px);
+    gap: 1px;
+    border: 4px solid var(--green);
+}
+
+/* ----  Cells (layer 1)  ---- */
+.cell {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border: 1px solid #ccc;
+    user-select: none;
+}
+
+.cell:nth-child(4n)     { background: var(--yellow);     }
+.cell:nth-child(4n+1)   { background: var(--light-blue); }
+.cell:nth-child(4n+2)   { background: var(--orange);     }
+.cell:nth-child(4n+3)   { background: var(--pink);       }
+
+/* ----  Paths (SVG, layer 2)  ---- */
+#paths {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* ----  Tokens (layer 3)  ---- */
+.token {
+    position: absolute;
+    z-index: 3;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: radial-gradient(circle at 30% 30%, #fff, var(--purple) 65%);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.35);
+    transform: translate(-50%, -50%);
+    transition: top 0.6s ease, left 0.6s ease;
+}
+
+.token.blue {
+    background: radial-gradient(circle at 30% 30%, #fff, var(--blue) 65%);
+}
+
+/* Hop animation */
+@keyframes hop {
+    0%   { transform: translate(-50%, -50%) scale(1); }
+    50%  { transform: translate(-50%, -60%) scale(1.18); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.token.hop {
+    animation: hop 0.6s ease;
+}
+
+/* =========================================================
+   DICE
+   ========================================================= */
+#diceArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+}
+
+.dice {
+    width: 68px;
+    height: 68px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(-30deg) rotateY(-30deg);
+}
+
+.dice.rolling {
+    animation: spin 1s cubic-bezier(.19, 1, .22, 1);
+}
+
+@keyframes spin {
+    to { transform: rotateX(720deg) rotateY(720deg); }
+}
+
+.face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.3rem;
+}
+
+/* Individual faces */
+.face.one   { transform: translateZ(34px);                    }
+.face.two   { transform: rotateY( 90deg) translateZ(34px);    }
+.face.three { transform: rotateY(180deg) translateZ(34px);    }
+.face.four  { transform: rotateY(-90deg) translateZ(34px);    }
+.face.five  { transform: rotateX( 90deg) translateZ(34px);    }
+.face.six   { transform: rotateX(-90deg) translateZ(34px);    }
+
+#rollBtn {
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 35px;
+    background: var(--green);
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+#rollBtn:hover {
+    transform: scale(1.05);
+    background: var(--yellow);
+    color: #000;
+}
+
+/* =========================================================
+   PLAYER PANELS
+   ========================================================= */
+.player {
+    border: 3px solid var(--green);
+    border-radius: 16px;
+    padding: 1rem;
+    background: var(--light-blue);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+}
+
+.player.active {
+    border-color: var(--red);
+}
+
+#status {
+    font-weight: 700;
+}
+
+/* =========================================================
+   SNAKES & LADDERS (SVG STYLES)
+   ========================================================= */
+.snake-body {
+    stroke: url(#snakeGrad);
+    stroke-width: 14;
+    fill: none;
+    stroke-linecap: round;
+    filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.35));
+}
+
+.snake-head {
+    fill: url(#snakeHead);
+    stroke: #27651f;
+    stroke-width: 1;
+}
+
+.eye   { fill: #fff; }
+.pupil { fill: #000; }
+
+.ladder-rail {
+    stroke: #8d5e00;
+    stroke-width: 8;
+    fill: none;
+    stroke-linecap: round;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35));
+}
+
+.ladder-rung {
+    stroke: #d8a600;
+    stroke-width: 4;
+}
+
+/* =========================================================
+   OVERLAYS & MODALS
+   ========================================================= */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(1.5px);
+    z-index: 800;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 1rem;
+}
+
+.overlay.hidden {
+    display: none;
+}
+
+.modal {
+    background: #fff;
+    border: 5px solid var(--green);
+    border-radius: 18px;
+    padding: 1.8rem 1.6rem;
+    max-width: 380px;
+    width: 88%;
+    z-index: 900;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+#questionBox h3 {
+    text-align: center;
+    margin-bottom: 0.8rem;
+    font-size: 1.25rem;
+}
+
+#questionText {
+    margin-bottom: 1rem;
+}
+
+#options button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 0.45rem 0;
+    padding: 0.55rem 1rem;
+    background: var(--light-blue);
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+#options button:hover {
+    background: var(--yellow);
+    transform: translateX(6px);
+}
+
+#feedback {
+    margin-top: 1rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+#nextBtn {
+    margin-top: 1.2rem;
+    background: var(--green);
+    color: #fff;
+    border: none;
+    border-radius: 28px;
+    padding: 0.6rem 1.4rem;
+    cursor: pointer;
+}
+
+/* =========================================================
+   INTRO POP‑UP
+   ========================================================= */
+/* =========================================================
+   INTRO POPUP OVERLAY
+   ========================================================= */
+#introOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(1.5px);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 2rem;
+}
+
+#introOverlay.hidden {
+  display: none;
+}
+
+/* Popup box */
+#introOverlay .intro {
+  background: #fff;
+  border: 5px solid var(--green);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 420px;
+  width: 90%;
+  position: relative;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Title and text */
+#introOverlay h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+#introOverlay p {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Option buttons */
+.intro-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.option-btn {
+  padding: 0.7rem 1.4rem;
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.option-btn.blue {
+  background: var(--light-blue);
+  color: #000;
+}
+
+.option-btn.orange {
+  background: var(--orange);
+  color: #000;
+}
+
+.option-btn:hover {
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+
+/* Mode selection */
+.mode-selection {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+/* Main button */
+.intro-btns {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+#playBtn {
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 0.6rem 1.3rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+#playBtn:hover {
+  background: var(--yellow);
+  color: #000;
+  transform: scale(1.05);
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: var(--red);
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  background: #a82c1c;
+}
+
+/* Simple fade in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Mode selection styling */
+.mode-selection {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem 0;
+  font-weight: bold;
+}

@@ -1,0 +1,124 @@
+:root{
+  --white:#fff;
+  --bg-light:#fefefe;
+  --blue-dark:#06317b;
+  --yellow:#f9d25f;
+  --green:#3a7f29;
+  --pink:#e153a7;
+  --shadow:rgba(0,0,0,.1);
+  --font:'Fredoka',sans-serif;
+}
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:var(--font)}
+body{background:var(--bg-light);color:#222;display:flex;flex-direction:column;min-height:100vh;line-height:1.65}
+
+/* BOARD‑PATTERN BACKGROUND */
+body::before{content:"";position:fixed;inset:0;background-size:80px 80px;background-image:linear-gradient(45deg,transparent 74%,rgba(0,0,0,.04) 75%),linear-gradient(45deg,rgba(0,0,0,.04) 25%,transparent 25% 74%,rgba(0,0,0,.04) 75%);animation:boardMove 30s linear infinite;pointer-events:none;z-index:-2}
+@keyframes boardMove{0%{background-position:0 0,40px 40px}100%{background-position:160px 160px,200px 200px}}
+
+/* Subtle snakes overlay */
+body::after{content:"";position:fixed;inset:0;background:url('https://img.icons8.com/emoji/96/snake-emoji.png') repeat;background-size:90px;opacity:.05;mix-blend-mode:overlay;animation:snakeDrift 60s linear infinite;pointer-events:none;z-index:-3}
+@keyframes snakeDrift{0%{transform:translate(0,0)}100%{transform:translate(120px,150px)}}
+
+/* HEADER */
+header{background:var(--white);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;box-shadow:0 2px 8px var(--shadow)}
+.logo{height:70px}
+nav a{color:var(--blue-dark);margin-left:1.5rem;font-weight:600;text-decoration:none;padding-bottom:4px;border-bottom:2px solid transparent;transition:.3s}
+nav a:hover,nav a.active{border-bottom-color:var(--yellow)}
+
+/* PAGE TITLE */
+.page-title{text-align:center;padding:3rem 1rem 1.8rem}
+.page-title h1{font-size:2.6rem;color:var(--green);margin-bottom:.3rem}
+.subtitle{color:#555;font-size:1.15rem}
+
+/* TIMELINE */
+.timeline-container{max-width:900px;margin:2rem auto 5rem;padding:0 1rem;display:flex;flex-direction:column;gap:4.5rem}
+.timeline-step{position:relative;display:flex;gap:2rem;align-items:center;background:#fff;border-radius:20px;box-shadow:0 6px 20px var(--shadow);padding:2.2rem 2.4rem;opacity:0;transform:translateY(60px);transition:opacity .8s ease,transform .8s ease}
+.timeline-step.left{flex-direction:row-reverse}
+.timeline-step.show{opacity:1;transform:translateY(0)}
+
+/* Bubble */
+.timeline-step::before{content:attr(data-icon);position:absolute;top:-24px;left:50%;transform:translateX(-50%);font-size:2rem;background:var(--yellow);width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px rgba(0,0,0,.12)}
+@media(min-width:769px){.timeline-step.left::before{right:-70px;left:auto;transform:none}.timeline-step.right::before{left:-70px;transform:none}}
+
+/* IMG */
+.step-img{width:180px;border-radius:16px;box-shadow:0 4px 12px var(--shadow);flex-shrink:0;opacity:0;transform:scale(.85) rotate(-4deg);transition:opacity .8s ease .1s,transform .8s ease .1s}
+.timeline-step.show .step-img{opacity:1;transform:scale(1) rotate(0)}
+.step-img:hover{transform:scale(1.05) rotate(2deg)!important}
+
+/* TEXT */
+.step-content h3{font-size:1.9rem;color:var(--green);margin-bottom:.6rem}
+.step-content p,.step-content ul{font-size:1.15rem;color:#444;line-height:1.5}
+.step-content ul{list-style:none;padding-left:0;margin-top:.4rem}
+.step-content li{margin-bottom:.7rem;padding-left:34px;font-weight:600;color:var(--blue-dark);position:relative}
+.step-content li i{position:absolute;left:0;top:50%;transform:translateY(-50%);color:var(--pink)}
+
+/* TEXT ANIMATE */
+.text-animate{opacity:0;transform:translateY(25px);transition:opacity .8s ease,transform .8s ease}
+.timeline-step.show .text-animate{opacity:1;transform:translateY(0)}
+
+footer {
+  background-color: var(--green);
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+   ANIMASI BACKGROUND PAPAN Ular‑Tangga
+   ========================================================= */
+
+/* 1. kotak 2‑warna bergerak diagonal */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  pointer-events:none;
+  background-size:120px 120px;                 /* ukuran petak */
+  background-image:
+      linear-gradient( 45deg, #f44336 25%, transparent 25%, transparent 50%, #ffeb3b 50%, #ffeb3b 75%, transparent 75%),
+      linear-gradient(-45deg, #2196f3 25%, transparent 25%, transparent 50%, #4caf50 50%, #4caf50 75%, transparent 75%);
+  animation:papanShift 20s linear infinite;
+  opacity:0.15;                                /* lembut—turunkan/naikkan sesuai selera */
+}
+
+@keyframes papanShift{
+  0%   { background-position: 0 0, 0 0; }
+  100% { background-position: 240px 240px, -240px -240px; }
+}
+
+/* TEXT JUSTIFY */
+.step-content p,
+.step-content ul,
+.step-content li,
+.subtitle,
+.page-title p {
+  text-align: justify;
+}
+
+
+/* 2. “sheen” ular tipis (opsional) */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-4;
+  pointer-events:none;
+  background:url('https://img.icons8.com/emoji/96/snake-emoji.png') repeat;
+  background-size:100px;
+  animation:ularSlide 60s linear infinite;
+  opacity:0.05;
+  mix-blend-mode:overlay;
+}
+
+@keyframes ularSlide{
+  0%{transform:translate(0,0)}
+  100%{transform:translate(200px,200px)}
+}
+
+
+/* RESPONSIVE */
+@media(max-width:768px){nav a{margin-left:1rem;font-size:.92rem}.timeline-step{flex-direction:column;text-align:center}.step-img{width:70%;max-width:260px;margin-top:1rem}.timeline-step::before{left:50%;right:auto;transform:translateX(-50%)}}

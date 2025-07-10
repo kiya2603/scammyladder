@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scams & Ladders</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" />
+  <link rel="stylesheet" href="games.css?v=3" />
+
+</head>
+<body>
+  <audio id="startSound" src="audio/start.mp3"></audio>
+  <audio id="moveSound" src="audio/move.mp3"></audio>
+  <audio id="snakeSound" src="audio/snake.mp3"></audio>
+  <audio id="ladderSound" src="audio/ladder.mp3"></audio>
+  <audio id="questionSound" src="audio/question.mp3"></audio>
+  <audio id="correctSound" src="audio/correct.mp3"></audio>
+  <audio id="wrongSound" src="audio/wrong.mp3"></audio>
+  <audio id="winSound" src="audio/win.mp3"></audio>
+  <header>
+    <a href="home.html"><img src="Logo-3.png" class="logo" alt="Logo" /></a>
+    <nav>
+      <a href="home.html">Halaman Utama</a>
+      <a href="about.html">Tentang Kami</a>
+      <a class="active" href="games.html">Game</a>
+      <a href="documentation.html">Dokumentasi Kegiatan</a>
+      <a href="contact.html">Kontak Kami</a>
+    </nav>
+  </header>
+
+  <main class="wrapper">
+    <!--  SIDEBAR  -->
+    <aside id="sidebar" class="hidden">
+      <section id="players">
+        <div class="player" id="p1Card">
+          <h3>👤 Pemain 1</h3>
+          <p>Posisi : <span class="pos">1</span></p>
+          <p>Skor   : <span class="score">0</span></p>
+        </div>
+        <br>
+        <div class="player hidden" id="p2Card">
+          <h3>👥 Pemain 2</h3>
+          <p>Posisi : <span class="pos">1</span></p>
+          <p>Skor   : <span class="score">0</span></p>
+        </div>
+      </section>
+
+      <section id="diceArea" class="hidden">
+        <div id="dice" class="dice">
+          <div class="face one">⚀</div><div class="face two">⚁</div><div class="face three">⚂</div>
+          <div class="face four">⚃</div><div class="face five">⚄</div><div class="face six">⚅</div>
+        </div>
+        <button id="rollBtn">Lempar 🎲!</button>
+        <p id="diceResult"></p>
+      </section>
+      <p id="status"></p>
+    </aside>
+
+    <!--  BOARD  -->
+    <section id="board"></section>
+  </main>
+
+<!-- POP-UP INTRO -->
+<div id="introOverlay" class="overlay">
+  <div class="intro">
+    <button class="close-btn" onclick="window.location.href='home.html'">✖</button>
+    <h2>Selamat Datang!</h2>
+    <p>Yuk, pilih dulu sebelum main!</p>
+
+    <div class="intro-options">
+     <button id="learnBtn" onclick="window.location.href='belajar-dulu.html'" class="option-btn blue">📖 Belajar Dulu</button>
+      <button onclick="window.location.href='how-to-play.html'" class="option-btn orange">📘 Cara Bermain</button>
+    </div>
+
+    <h3>Mau Langsung Main?</h3>
+    <p>Pilih Mode Permainan:</p>
+
+    <div class="mode-selection">
+      <label><input type="radio" name="mode" value="solo" checked /> 1 Pemain</label>
+      <label><input type="radio" name="mode" value="duo" /> 2 Pemain</label>
+    </div>
+
+    <div class="intro-btns">
+      <button id="playBtn">🎮 Main Yuk!</button>
+    </div>
+  </div>
+</div>
+
+  <!--  POP‑UP PERTANYAAN  -->
+  <div id="overlay" class="overlay hidden">
+    <div id="questionBox" class="modal hidden">
+      <h3>Pertanyaan</h3>
+      <p id="questionText"></p>
+      <div id="options"></div>
+      <div id="feedback" class="hidden"></div>
+      <button id="nextBtn" class="hidden">Lanjut</button>
+    </div>
+  </div>
+
+  <script defer src="games.js"></script>
+
+</body>
+</html>
+
